@@ -5,17 +5,16 @@ import { NavLink } from 'react-router-dom';
 function NavBar() {
     const [open, setOpen] = useState(false)
     const handleClick = () => setOpen(!open);
-    const closeMobile = () => setOpen(false);
 
     return (
         <nav id='navbar' className={ open ? 'responsive' : ''}>
             <div id='home-nav'>
-                <NavLink exact to="/" className='link'>Home</NavLink>
+                <NavLink exact to="/" className='link' id="logo">✓</NavLink>
             </div>
             <ul id='ul-nav'>
-                <a href="#" className="icon link" onClick={handleClick}>
+                <button className="icon link" onClick={handleClick}>
                     { open ? <i className='fa fa-close'/> : <i className="fa fa-bars"/>}
-                </a>
+                </button>
                 <li className='li-nav'>
                     <NavLink exact to="/" className='link'>Home</NavLink>
                 </li>

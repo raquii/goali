@@ -9,8 +9,9 @@
   align-items: center;
 }
 
-#home-nav{
-
+#logo:hover::after{
+  transition: linear 10s;
+  content: '\ goalie';
 }
 
 #ul-nav{
@@ -36,12 +37,19 @@
 .li-nav a.active {
   background-color: #ffffff1c;
   color: white;
-  border-radius: ;
+  border-radius: 6pt;
+}
+
+.li-nav a:hover{
+  background-color: rgba(255, 255, 255, 0.24);
+  border-radius: 6pt;
 }
 
 .icon {
   display: none;
   cursor: pointer;
+  background-color: #006D77;
+  border: none;
 }
 
 @media screen and (max-width: 600px) {
@@ -61,7 +69,7 @@
   }
 
   .responsive .icon{
-    margin: 0;
+    margin-right: -10pt;
   }
 
   .responsive #ul-nav{
@@ -70,7 +78,7 @@
     background-color: #006d77;
     padding: 0;
     right: 0;
-    top: 0;
+    top: 5pt;
     margin: 0 auto;
     align-items: center;
     border-radius: 4pt;
