@@ -10,27 +10,53 @@ function SignIn() {
     });
 
     const [forgot, setForgot] = useState(false);
+    const [email, setEmail] = useState('');
 
     function handleSubmit(e) {
         e.preventDefault();
         console.log(signIn);
     }
 
-    function handleForgotPassword(){
+    function handleForgotPassword() {
         console.log('I forgot my password.');
+        setForgot(true);
     }
 
     const forgotPassword = () => {
-        return(
+        return (
             <div id='forgot-pass'>
+                <h1>Forgot Password</h1>
                 <label htmlFor='email'>Email:</label>
                 <input
-                    id='email'/>
+                    id='email'
+                    type='email'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                {/* <div id='btn-container'> */}
+                    <Button
+                        type='submit'
+                        text='Send Password Recovery Email'
+                        clickHandler={() => console.log(`send me my password to: ${email}`)}
+                    />
+                    <Button
+                        type='button'
+                        text='Back'
+                        clickHandler={() => setForgot(false)}
+                        className='alt-button'
+                    />
+                {/* </div> */}
             </div>
         )
     }
 
-    return ( 
+    if (forgot) {
+        return (
+            forgotPassword()
+        )
+    }
+
+    return (
         <form id='sign-in-form' className='form' onSubmit={handleSubmit}>
             <label htmlFor='username'>Username: </label>
             <input
@@ -55,7 +81,7 @@ function SignIn() {
                 type='button'
                 text='Forgot Password?'
                 clickHandler={handleForgotPassword}
-                className='forgot'
+                className='alt-button'
             />
         </form>
 
