@@ -10,6 +10,8 @@
   margin-top: 20px;
 }
 
+/* universal form styling  */
+
 .form{
   display: flex;
   flex-flow: column wrap;
@@ -48,6 +50,7 @@ input:focus-visible{
   transform: translate3d(0, 0, 0);
 }
 
+/* error message animation */
 @keyframes shake{
   10%, 90% {
     transform: translate3d(-1px, 0, 0);
