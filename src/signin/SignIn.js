@@ -2,15 +2,16 @@ import { useState } from "react";
 import './SignIn.css'
 
 import Button from "../Button/Button";
+import ForgotPassword from "../ForgotPassword/ForgotPassword";
 
 function SignIn() {
     const [signIn, setSignIn] = useState({
         username: '',
-        password: ''
+        password: '',
     });
-
     const [forgot, setForgot] = useState(false);
-    const [email, setEmail] = useState('');
+    const [errors, setErrors] = useState('')
+    
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -22,46 +23,23 @@ function SignIn() {
         setForgot(true);
     }
 
-    const forgotPassword = () => {
-        return (
-            <div id='forgot-pass'>
-                <h1>Forgot Password</h1>
-                <label htmlFor='email'>Email:</label>
-                <input
-                    id='email'
-                    type='email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                {/* <div id='btn-container'> */}
-                    <Button
-                        type='submit'
-                        text='Send Password Recovery Email'
-                        clickHandler={() => console.log(`send me my password to: ${email}`)}
-                    />
-                    <Button
-                        type='button'
-                        text='Back'
-                        clickHandler={() => setForgot(false)}
-                        className='alt-button'
-                    />
-                {/* </div> */}
-            </div>
-        )
-    }
-
+    
+    
+    // conditionally render the forgot password component when `forgot` is true
     if (forgot) {
         return (
-            forgotPassword()
+            <ForgotPassword setForgot={setForgot}/>
         )
     }
 
+    //Otherwise, render the sign-in form  
     return (
         <form id='sign-in-form' className='form' onSubmit={handleSubmit}>
             <label htmlFor='username'>Username: </label>
             <input
                 id='username'
                 type='text'
+                className={errors.length > 0 && 'error-input'}
                 value={signIn.username}
                 onChange={(e) => setSignIn({ ...signIn, username: e.target.value })}
             />
@@ -69,9 +47,15 @@ function SignIn() {
             <input
                 id='password'
                 type='password'
+                className={errors.length > 0 && 'error-input'}
                 value={signIn.password}
                 onChange={(e) => setSignIn({ ...signIn, password: e.target.value })}
             />
+            {errors.length > 0 && 
+                <span className='error-msg'>
+                    <i className="fas fa-exclamation-triangle" /> {errors}
+                </span>
+            }
             <Button
                 type='submit'
                 text='Sign In'
@@ -84,9 +68,7 @@ function SignIn() {
                 className='alt-button'
             />
         </form>
-
     )
-
 }
 
 export default SignIn;
