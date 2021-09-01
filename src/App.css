@@ -13,7 +13,55 @@
 .form{
   display: flex;
   flex-flow: column wrap;
-  width: 60%;
   text-align: left;
   align-items: center;
+}
+
+input{
+  border-radius: 4pt;
+  border: 1pt solid var(--light-teal);
+  background: var(--trans-teal);
+  font-family: 'Montserrat', sans-serif;
+  margin: 1pt 0 6pt 0;
+  color: var(--dark-teal);
+}
+
+input:focus-visible{
+  outline-color: var(--dark-teal);
+}
+
+.error-input{
+  outline-color: red;
+  background: rgba(255, 0, 0, 0.164);
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+.error-input:focus-visible{
+  background: var(--trans-teal);
+}
+
+.error-msg{
+  color: red;
+  font-size: 0.625em;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake{
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
