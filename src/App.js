@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router';
 import NavBar from './NavBar/NavBar';
 import Home from './Home/Home';
 import SignIn from './signin/SignIn';
+import SignUp from './signup/SignUp';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
             <h1>about</h1>
           </Route>
           <Route path="/signup">
-            <h1>signup</h1>
+            <SignUp />
           </Route>
           <Route path="/signin">
             <SignIn />
