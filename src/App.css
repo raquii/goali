@@ -12,7 +12,7 @@
 
 /* universal form styling  */
 
-.form{
+form{
   display: flex;
   flex-flow: column wrap;
   text-align: left;
