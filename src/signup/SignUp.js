@@ -1,126 +1,98 @@
-import { useState } from "react";
-import { useFormik } from "formik";
+import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 import Button from "../Button/Button";
 
-function SignUp(){
-    const [formData, setFormData] = useState({
-        username: '',
-        password: '',
-        passwordConfirmation: '',
-        name: '',
-        email: '',
-        birthday: '',
-        errors: {
-            username:'',
-            password:'',
-            name:'',
-            email:'',
-            birthday:''
-        }
-    })
-    
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log(formData);
-    }
+const TextInput = ({ label, ...props }) => {
+    const [field, meta] = useField(props);
+    return (
+        <>
+            <label htmlFor={props.id || props.name}>{label}</label>
+            <input className="text-input" {...field} {...props} />
+            {meta.touched && meta.error ? (
+                <div className="error-msg" ><i className="fas fa-exclamation-triangle" /> {meta.error}</div>
+            ) : null}
+        </>
+    );
+};
 
-    function handleChange(e){
-        const key=e.target.id
-        const value=e.target.value
-        setFormData({
-            ...formData,
-            [key]:value
-        })
-    }
+function SignUp() {
 
-    function validateForm(){
-
-    }
-
-    return(
-        <form id='sign-up-form' className='form' onSubmit={handleSubmit}>
-            <h1>Sign Up</h1>
-            <label htmlFor='username'>Username: </label>
-            <input
-                id='username'
-                type='text'
-                className={formData.errors.username.length > 0 ? 'error-input' : undefined}
-                value={formData.username}
-                onChange={handleChange}
-            />
-            {formData.errors.username.length > 0 && 
-                <span className='error-msg'>
-                    <i className="fas fa-exclamation-triangle" /> {formData.errors.username}
-                </span>
-            }
-            <label htmlFor='password'>Password: </label>
-            <input
-                id='password'
-                type='password'
-                className={formData.errors.password.length > 0 ? 'error-input' : undefined}
-                value={formData.password}
-                onChange={handleChange}
-            />
-            <label htmlFor='passwordConfirmation'>Password Confirmation: </label>
-            <input
-                id='passwordConfirmation'
-                type='password'
-                className={formData.errors.password.length > 0 ? 'error-input' : undefined}
-                value={formData.passwordConfirmation}
-                onChange={handleChange}
-            />
-            {formData.errors.password.length > 0 && 
-                <span className='error-msg'>
-                    <i className="fas fa-exclamation-triangle" /> {formData.errors.password}
-                </span>
-            }
-            <label htmlFor='name'>Name: </label>
-            <input
-                id='name'
-                type='text'
-                className={formData.errors.name.length > 0 ? 'error-input' : undefined}
-                value={formData.name}
-                onChange={handleChange}
-            />
-            {formData.errors.name.length > 0 && 
-                <span className='error-msg'>
-                    <i className="fas fa-exclamation-triangle" /> {formData.errors.name}
-                </span>
-            }
-            <label htmlFor='email'>Email: </label>
-            <input
-                id='email'
-                type='email'
-                className={formData.errors.email.length > 0 ? 'error-input' : undefined}
-                value={formData.email}
-                onChange={handleChange}
-            />
-            {formData.errors.email.length > 0 && 
-                <span className='error-msg'>
-                    <i className="fas fa-exclamation-triangle" /> {formData.errors.email}
-                </span>
-            }
-            <label htmlFor='birthday'>Birthday: </label>
-            <input
-                id='birthday'
-                type='date'
-                className={formData.errors.birthday.length > 0 ? 'error-input' : undefined}
-                value={formData.birthday}
-                onChange={handleChange}
-            />
-            {formData.errors.birthday.length > 0 && 
-                <span className='error-msg'>
-                    <i className="fas fa-exclamation-triangle" /> {formData.errors.birthday}
-                </span>
-            }
-
-            <Button
-                type='submit'
-                text='Sign Up'
-                clickHandler={handleSubmit}
-            />
-        </form>
+    return (
+        <>
+            <Formik
+                initialValues={{
+                    username: '',
+                    password: '',
+                    passwordConfirmation: '',
+                    name: '',
+                    email: '',
+                    birthday: '',
+                }}
+                validationSchema={Yup.object({
+                    username: Yup.string()
+                        .required('Required')
+                        .min(5, "Must be 5-30 characters in length.")
+                        .max(30, "Must be 5-30 characters in length."),
+                    password: Yup.string()
+                        .required('Required')
+                        .min(7, "Must be between 7-20 characters.")
+                        .max(20, "Must be between 7-20 characters.")
+                        .matches(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,20}/, 'Must contain an upper and lowercase character, a number, and a special character'),
+                    passwordConfirmation: Yup.string()
+                        .required('Required')
+                        .test('match-password', 'Passwords must match.', (value, context) => value === context.parent.password),
+                    name: Yup.string()
+                        .required('Required')
+                        .min(5, "Must be 5-30 characters in length.")
+                        .max(30, "Must be 5-30 characters in length."),
+                    email: Yup.string()
+                        .required('Required')
+                        .email("Invalid email address."),
+                    birthday: Yup.date()
+                        .required('Required'),
+                })}
+                onSubmit={values => { console.log(JSON.stringify(values, null, 2)) }}
+            >
+                <Form>
+                <h1>Sign Up</h1>
+                    <TextInput
+                        label="Username"
+                        name="username"
+                        type="text"
+                    />
+                    <TextInput
+                        label="Password"
+                        name="password"
+                        type="password"
+                    />
+                    <TextInput
+                        label="Password Confirmation"
+                        name="passwordConfirmation"
+                        type="password"
+                    />
+                    <TextInput
+                        label="Your Full Name"
+                        name="name"
+                        type="text"
+                    />
+                    <TextInput
+                        label="Email"
+                        name="email"
+                        type="email"
+                    />
+                    <TextInput
+                        label="Birthday"
+                        name="birthday"
+                        type="date"
+                    />
+                    <Button
+                        type='submit'
+                        text='Sign Up'
+                        clickHandler={() => undefined}
+                    />
+                </Form>
+            </Formik>
+        </>
     )
 
 }
