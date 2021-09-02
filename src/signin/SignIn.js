@@ -28,18 +28,19 @@ function SignIn() {
     // conditionally render the forgot password component when `forgot` is true
     if (forgot) {
         return (
-            <ForgotPassword setForgot={setForgot}/>
+            <ForgotPassword setForgot={setForgot} errors={errors} setErrors={setErrors}/>
         )
     }
 
     //Otherwise, render the sign-in form  
     return (
         <form id='sign-in-form' className='form' onSubmit={handleSubmit}>
+            <h1>Sign In</h1>
             <label htmlFor='username'>Username: </label>
             <input
                 id='username'
                 type='text'
-                className={errors.length > 0 && 'error-input'}
+                className={errors.length > 0 ? 'error-input' : undefined}
                 value={signIn.username}
                 onChange={(e) => setSignIn({ ...signIn, username: e.target.value })}
             />
@@ -47,7 +48,7 @@ function SignIn() {
             <input
                 id='password'
                 type='password'
-                className={errors.length > 0 && 'error-input'}
+                className={errors.length > 0 ? 'error-input' : undefined}
                 value={signIn.password}
                 onChange={(e) => setSignIn({ ...signIn, password: e.target.value })}
             />
