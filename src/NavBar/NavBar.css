@@ -9,9 +9,15 @@
   align-items: center;
 }
 
-#logo:hover::after{
-  transition: linear 10s;
-  content: '\ goalie';
+#logo:hover{
+  background-color: rgba(255, 255, 255, 0.24);
+  border-radius: 6pt;
+}
+
+#logo.active{
+  background-color: #ffffff1c;
+  color: white;
+  border-radius: 6pt;
 }
 
 #ul-nav{

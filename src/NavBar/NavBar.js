@@ -9,15 +9,12 @@ function NavBar() {
     return (
         <nav id='navbar' className={ open ? 'responsive' : ''}>
             <div id='home-nav'>
-                <NavLink exact to="/" className='link' id="logo">✓</NavLink>
+                <NavLink exact to="/" className='link' id="logo">✓ goalie</NavLink>
             </div>
             <ul id='ul-nav'>
                 <button className="icon link" onClick={handleClick}>
                     { open ? <i className='fa fa-close'/> : <i className="fa fa-bars"/>}
                 </button>
-                <li className='li-nav'>
-                    <NavLink exact to="/" className='link'>Home</NavLink>
-                </li>
                 <li className='li-nav'>
                     <NavLink to="/about" className='link'>About</NavLink>
                 </li>
