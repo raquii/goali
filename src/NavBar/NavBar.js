@@ -1,10 +1,17 @@
 import './NavBar.css';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import Button from '../Button/Button';
 
-function NavBar() {
+function NavBar({user, onLogout}) {
     const [open, setOpen] = useState(false)
     const handleClick = () => setOpen(!open);
+
+    function logout(){
+        fetch('/logout',{
+            method: 'DELETE',
+        }).then(()=>onLogout(null))
+    }
 
     return (
         <nav id='navbar' className={ open ? 'responsive' : ''}>
@@ -19,10 +26,10 @@ function NavBar() {
                     <NavLink to="/about" className='link'>About</NavLink>
                 </li>
                 <li className='li-nav'>
-                    <NavLink to="/signup" className='link'>Sign Up</NavLink>
+                    {!user? <NavLink to="/signup" className='link'>Sign Up</NavLink> : <Button text='Sign Out' className='link' clickHandler={logout}/>}
                 </li>
                 <li className='li-nav'>
-                    <NavLink to="/signin" className='link'>Sign In</NavLink>
+                    {!user&&<NavLink to="/signin" className='link'>Sign In</NavLink>}
                 </li>
             </ul>
         </nav >
