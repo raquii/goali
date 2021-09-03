@@ -17,13 +17,25 @@ const TextInput = ({ label, ...props }) => {
 
 function SignUp() {
 
+    function handleSignUp(values){
+        fetch('/signup',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values)
+        })
+        .then(r=>r.json())
+        .then(user=>console.log(user))
+    }
+
     return (
         <>
             <Formik
                 initialValues={{
                     username: '',
                     password: '',
-                    passwordConfirmation: '',
+                    password_confirmation: '',
                     name: '',
                     email: '',
                     birthday: '',
@@ -38,7 +50,7 @@ function SignUp() {
                         .min(7, "Must be between 7-20 characters.")
                         .max(20, "Must be between 7-20 characters.")
                         .matches(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,20}/, 'Must contain an upper and lowercase character, a number, and a special character'),
-                    passwordConfirmation: Yup.string()
+                    password_confirmation: Yup.string()
                         .required('Required')
                         .test('match-password', 'Passwords must match.', (value, context) => value === context.parent.password),
                     name: Yup.string()
@@ -51,7 +63,7 @@ function SignUp() {
                     birthday: Yup.date()
                         .required('Required'),
                 })}
-                onSubmit={values => { console.log(JSON.stringify(values, null, 2)) }}
+                onSubmit={values => {handleSignUp(values)}}
             >
                 <Form>
                 <h1>Sign Up</h1>
@@ -67,7 +79,7 @@ function SignUp() {
                     />
                     <TextInput
                         label="Password Confirmation"
-                        name="passwordConfirmation"
+                        name="password_confirmation"
                         type="password"
                     />
                     <TextInput
