@@ -4,7 +4,7 @@ import './SignIn.css'
 import Button from "../Button/Button";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 
-function SignIn() {
+function SignIn({onSignIn}) {
     const [signIn, setSignIn] = useState({
         username: '',
         password: '',
@@ -15,7 +15,15 @@ function SignIn() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(signIn);
+        fetch('/login',{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(signIn)
+        })
+        .then(r=>r.json())
+        .then(user=>onSignIn(user))
     }
 
     function handleForgotPassword() {
