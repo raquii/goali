@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../Button/Button";
+import Button from "../button/Button";
 
 function ForgotPassword({setForgot, errors, setErrors}){
     const [email, setEmail] = useState('');

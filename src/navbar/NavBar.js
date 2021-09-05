@@ -1,7 +1,7 @@
 import './NavBar.css';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Button from '../Button/Button';
+import Button from '../button/Button';
 
 function NavBar({user, onLogout}) {
     const [open, setOpen] = useState(false)
