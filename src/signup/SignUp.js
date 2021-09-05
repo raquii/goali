@@ -1,6 +1,6 @@
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
-import Button from "../Button/Button";
+import Button from "../button/Button";
 
 const TextInput = ({ label, ...props }) => {
     const [field, meta] = useField(props);
