@@ -1,8 +1,8 @@
 import { useState } from "react";
 import './SignIn.css'
 
-import Button from "../Button/Button";
-import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import Button from "../button/Button";
+import ForgotPassword from "../forgotPassword/ForgotPassword";
 
 function SignIn({onSignIn}) {
     const [signIn, setSignIn] = useState({

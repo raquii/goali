@@ -2,8 +2,8 @@ import './App.css';
 import { Switch, Route } from 'react-router';
 import { useState, useEffect } from 'react';
 
-import NavBar from './NavBar/NavBar';
-import Home from './Home/Home';
+import NavBar from './navbar/NavBar';
+import Home from './home/Home';
 import SignIn from './signin/SignIn';
 import SignUp from './signup/SignUp';
 
