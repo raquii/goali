@@ -1,17 +1,23 @@
 import './App.css';
-import { Switch, Route } from 'react-router';
 import { useState, useEffect } from 'react';
+import { useIsLoggedInQuery } from './features/api';
 
-import NavBar from './navbar/NavBar';
-import Home from './home/Home';
-import SignIn from './signin/SignIn';
-import SignUp from './signup/SignUp';
+import Public from './public/Public';
+import Private from './private/Private';
 
 function App() {
   const [user, setUser] = useState(null);
-
+  // const { data, error, isLoading } = useIsLoggedInQuery();
   useEffect(() => {
-    fetch('/me')
+    fetch('http://localhost:3000/me',
+    { 'method':'GET',
+      'credentials': "include",
+      headers:{
+        'Accept': 'application/json',
+        "Content-Type": "application/json"
+      }
+      
+    })
     .then(r=>{
       if(r.ok){
         r.json()
@@ -23,26 +29,15 @@ function App() {
     });
   }, [])
 
+  // console.log(user)
   return (
     <div className="App">
-      <NavBar user={user} onLogout={setUser}/>
-      {user&&<h1>You're logged in!</h1>}
-      <main id='main-content'>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <h1>about</h1>
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route path="/signin">
-            <SignIn onSignIn={setUser}/>
-          </Route>
-        </Switch>
-      </main>
+      {/* <Private /> */}
+      {user ?
+        <Private onLogout={setUser} currentUser={user} />
+        :
+        <Public onSignIn={setUser} />
+      }
     </div>
   );
 }
