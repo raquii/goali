@@ -8,7 +8,7 @@ const initialState = {
     birthday: "",
 };
 
-export const userSlice = createSlice({
+export const slice = createSlice({
     name: "user",
     initialState,
     reducers: {
@@ -20,7 +20,7 @@ export const userSlice = createSlice({
                 console.log('pending', action);
             })
             .addMatcher(api.endpoints.login.matchFulfilled, (state, action) => {
-                console.log('fulfilled', action);
+                console.log('fulfilled-login', action);
                 state.name = action.payload.name;
                 state.username = action.payload.username;
                 state.email = action.payload.email;
@@ -28,11 +28,23 @@ export const userSlice = createSlice({
             })
             .addMatcher(api.endpoints.login.matchRejected, (state, action) => {
                 console.log('rejected', action);
-            });
+            })
+            .addMatcher(api.endpoints.logout.matchFulfilled, (state) => {
+                state = initialState;
+                console.log('fulfilled-logout', state);
+            })
+            .addMatcher(api.endpoints.isLoggedIn.matchFulfilled, (state, action)=>{
+                console.log('fulfilled-session recovered', action);
+                state.name = action.payload.name;
+                state.username = action.payload.username;
+                state.email = action.payload.email;
+                state.birthday = action.payload.birthday;
+            })
+            
 
     }
 })
 
-export const { logout } = userSlice.actions;
+export const { logout } = slice.actions;
 
-export default userSlice.reducer;
+export default slice.reducer;
