@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import { userSlice } from "./user/userSlice";
+import userSlice from "./user/userSlice";
 import { api } from "./api";
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
     user: userSlice,
     [api.reducerPath]: api.reducer,
 })
+
+export default rootReducer;
