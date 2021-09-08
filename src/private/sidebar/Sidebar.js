@@ -1,6 +1,6 @@
 import './Sidebar.css'
 import { useState } from "react"
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useLogoutMutation } from '../../features/api';
 
 import Button from "../../components/button/Button";
@@ -9,14 +9,15 @@ import Alert from "../alert/Alert";
 export default function Sidebar() {
     const [open, setOpen] = useState(false);
     const [displayConfirm, setDisplayConfirm] = useState(false);
-    const handleClick = () => setOpen(!open);
-    
+
+    const history = useHistory();
+
     const [logout, {isSuccess}] = useLogoutMutation();
 
-    async function confirmSignOut() {
+    async function signOut() {
         try {
             await logout() 
-            console.log(isSuccess)        
+            history.push("/")   
         } catch (error) {
             console.log(error)
         }  
@@ -24,16 +25,16 @@ export default function Sidebar() {
 
     return (
         <>
-            {displayConfirm &&
+            {displayConfirm && 
                 <Alert
                     message="Are you sure you want to sign out?"
-                    confirmHandler={confirmSignOut}
+                    confirmHandler={signOut}
                     cancelHandler={() => setDisplayConfirm(false)}
                 />
             }
             <nav id='sidebar' className={open ? 'responsive' : ''}>
                 <ul id='ul-side'>
-                    <button className="icon side-link" onClick={handleClick}>
+                    <button className="icon side-link" onClick={() => setOpen(!open)}>
                         {open ? <i className='fa fa-close' /> : <i className="fa fa-bars" />}
                     </button>
                     <li className='li-side'>
@@ -51,7 +52,7 @@ export default function Sidebar() {
                     <li className='li-side'>
                         <Button
                             className='sign-out-btn'
-                            onClick={() => setDisplayConfirm(true)}
+                            clickHandler={() => setDisplayConfirm(true)}
                             text='Sign Out'
                             type='button'
                         />
