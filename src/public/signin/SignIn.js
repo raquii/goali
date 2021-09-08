@@ -23,7 +23,7 @@ function SignIn() {
         e.preventDefault();
         try {
             await login(signIn).unwrap()
-            history.push('/home')
+            history.push('/dashboard')
         } catch (error) {
             console.log(error)
         }
