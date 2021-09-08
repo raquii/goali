@@ -30,4 +30,4 @@ export const api = createApi({
 
 export const { useLoginMutation, useLogoutMutation, useIsLoggedInMutation } = api;
 
-export const { endpoints: { login }, } = api;
+export const { endpoints: { login, logout, isLoggedIn } } = api;
