@@ -4,6 +4,7 @@
 
 #main-content{
   display: flex;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -16,6 +17,7 @@
   left: 100pt;
   transition: all 0.5s ease;
   width: calc(100% - 100pt);
+  text-align: center;
 }
 
 /* universal form styling  */

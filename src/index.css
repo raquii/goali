@@ -3,7 +3,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--dark-slate);
+  background-color: #182125;
   color: white;
 }
 
@@ -18,7 +18,6 @@ body {
   --light-gold:#e6d19e;
   --trans-gold:#cca33b73;
 
-  -dark-space:#25283d;
 
   --dark-slate:#28363e;
   --med-slate:#628395;
