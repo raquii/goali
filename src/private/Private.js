@@ -1,18 +1,28 @@
 import { Switch, Route } from "react-router";
-import Button from "../components/button/Button";
 import Sidebar from "./sidebar/Sidebar";
-import UserHome from "./userhome/UserHome";
+import Dashboard from "./dashboard/Dashboard";
 
-function Private({ onLogout, currentUser = {username: 'raquii', name: "Raquel Roman-Rodriguez", email: "raquel@raquel.com", } }) {
-
+function Private() {
 
     return (
         <>
             <Sidebar />
-            <main>
+            <main id='user-main'>
                 <Switch>
-                    <Route exact path="/home">
-                        <UserHome currentUser={currentUser}/>
+                    <Route exact path="/dashboard">
+                        <Dashboard />
+                    </Route>
+                    <Route path="/profile">
+                        <h1>Here is your profile</h1>
+                    </Route>
+                    <Route path="/friends">
+                        <h1>Here are your friends</h1>
+                    </Route>
+                    <Route path="/messages">
+                        <h1>Here are your messages</h1>
+                    </Route>
+                    <Route path="/settings">
+                        <h1>Here are your settings</h1>
                     </Route>
                 </Switch>
             </main>
