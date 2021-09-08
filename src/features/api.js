@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery,  } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery, } from '@reduxjs/toolkit/query/react'
 
 export const api = createApi({
     baseQuery: fetchBaseQuery({
@@ -19,14 +19,15 @@ export const api = createApi({
                 method: 'DELETE',
             }),
         }),
-        isLoggedIn: builder.query({
+        isLoggedIn: builder.mutation({
             query: () => ({
-                url: 'me', 
+                url: 'me',
             })
         }),
     })
 })
 
 
-export const { useLoginMutation, useLogoutMutation, useIsLoggedInQuery } = api;
+export const { useLoginMutation, useLogoutMutation, useIsLoggedInMutation } = api;
 
+export const { endpoints: { login }, } = api;
