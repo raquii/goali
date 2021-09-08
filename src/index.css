@@ -3,6 +3,8 @@ body {
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--dark-slate);
+  color: white;
 }
 
 :root{
@@ -11,12 +13,17 @@ body {
   --light-teal:#66A7AD;
   --trans-teal:#66a7ad34;
 
-  --dark-gold:#F4A261;
-  --med-gold:#F6B581;
-  --light-gold:#F8C7A0;
-  --trans-gold:#f8c8a02f;
+  --dark-gold:#cca43b;
+  --med-gold:#d9bb6d;
+  --light-gold:#e6d19e;
+  --trans-gold:#cca33b73;
 
-  --dark-peach:#FFB4A2;
-  --med-peach:#FFC3B5;
-  --light-peach:#FFDBD3;
+  -dark-space:#25283d;
+
+  --dark-slate:#28363e;
+  --med-slate:#628395;
+  --light-slate:#a8bcc7;
+  --trans-slate:#28363e6c;
+
+  --grey:#E5E5E5;
 }
