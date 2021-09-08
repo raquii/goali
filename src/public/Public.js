@@ -5,7 +5,8 @@ import SignIn from './signin/SignIn';
 import SignUp from './signup/SignUp';
 import Home from './home/Home';
 
-function Public({ onSignIn }) {
+function Public() {
+
   return (
     <>
       <NavBar />
@@ -21,7 +22,7 @@ function Public({ onSignIn }) {
             <SignUp />
           </Route>
           <Route path="/signin">
-            <SignIn onSignIn={onSignIn} />
+            <SignIn />
           </Route>
         </Switch>
       </main>
