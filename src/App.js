@@ -2,28 +2,30 @@ import './App.css';
 import { useEffect, useCallback } from 'react';
 import { useIsLoggedInMutation } from './features/api';
 import { useSelector } from 'react-redux';
-
-
 import Public from './public/Public';
 import Private from './private/Private';
+import { useHistory } from 'react-router';
+
 
 function App() {
-  
+
   const [isLoggedIn] = useIsLoggedInMutation();
 
-  const username = useSelector(state => state.user.username)
+  const username = useSelector(state => state.user.username);
+  const history = useHistory();
 
   const checkForSession = useCallback(async () => {
     try {
       await isLoggedIn().unwrap()
+      history.push('/dashboard')
     } catch (error) {
       console.error()
     }
-  }, [isLoggedIn])
+  }, [isLoggedIn, history]);
 
   useEffect(() => {
     checkForSession()
-  }, [checkForSession])
+  }, [checkForSession]);
 
   return (
     <div className="App">
