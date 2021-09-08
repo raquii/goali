@@ -1,0 +1,113 @@
+/* nav container for sidebar */
+#sidebar{
+    position: fixed;
+    top: 0;
+    z-index: 5;
+    height: 100%;
+    width: 100pt;
+    background-color: var(--dark-slate);
+    color: white;
+    transition: all 0.5s ease;
+    border-right: 2pt solid white;
+}
+/* ul in sidebar */
+#ul-side{
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding-left: 0;
+}
+
+/* lis in sidebar */
+.li-side{
+    width: 100%;
+    text-align: right;
+    font-variant-caps: all-petite-caps;
+    font-size: 14pt;
+}
+
+/* links in sidebar */
+.side-link{
+    display: block;
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    padding: 10pt;
+    margin-left: -20pt;
+    transition: all 0.2s ease;
+}
+
+.side-link:hover{
+    color: var(--light-teal);
+    text-align: center;
+}
+
+#home-li{
+    text-emphasis: bold;
+}
+
+.active{
+    color:var(--light-gold);
+    background-color: var(--trans-teal);
+    text-align: center;
+}
+
+/* signout button in sidebar */
+.sign-out-btn{
+    position: absolute;
+    bottom: 20px;
+    border-color: var(--dark-gold);
+}
+
+.side-icon{
+    display: none;
+    color: var(--dark-gold);
+    background: transparent;
+    border: none;
+    margin-right: 10pt;
+}
+
+@media screen and (max-width: 600px) {
+    #sidebar{
+        width: 50pt;
+    }
+    #sidebar li:not(:first-child) {
+      display: none;
+    }
+    .sign-out-btn{
+        display: none;
+    }
+    .side-icon {
+        display: block;
+        align-self: center;
+    }
+
+    #sidebar.responsive {
+        width: 100pt;
+    }
+
+    #sidebar.responsive li{
+        display: block;
+    }
+
+    #sidebar.responsive .sign-out-btn{
+        display: block;
+    }
+
+    #sidebar.responsive .side-icon{
+        align-self: auto;
+    }
+
+    #user-main{
+        left:50pt;
+    }
+
+    #sidebar.responsive ~ #user-main{
+        left:100pt;
+    }
+
+}
