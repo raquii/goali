@@ -11,7 +11,7 @@ function App() {
   
   const [isLoggedIn] = useIsLoggedInMutation();
 
-  const username = useSelector(state => state.rootReducer.user.username)
+  const username = useSelector(state => state.user.username)
 
   const checkForSession = useCallback(async () => {
     try {
