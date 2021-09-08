@@ -15,7 +15,7 @@ function SignIn() {
     });
     const [forgot, setForgot] = useState(false);
     const [errors, setErrors] = useState('')
-    
+
     const history = useHistory();
     const [login] = useLoginMutation();
 
@@ -26,7 +26,7 @@ function SignIn() {
             history.push('/home')
         } catch (error) {
             console.log(error)
-        }  
+        }
     }
 
     function handleForgotPassword() {
@@ -36,7 +36,7 @@ function SignIn() {
     // conditionally render the forgot password component when `forgot` is true
     if (forgot) {
         return (
-            <ForgotPassword setForgot={setForgot} errors={errors} setErrors={setErrors}/>
+            <ForgotPassword setForgot={setForgot} errors={errors} setErrors={setErrors} />
         )
     }
 
@@ -60,7 +60,7 @@ function SignIn() {
                 value={signIn.password}
                 onChange={(e) => setSignIn({ ...signIn, password: e.target.value })}
             />
-            {errors.length > 0 && 
+            {errors.length > 0 &&
                 <span className='error-msg'>
                     <i className="fas fa-exclamation-triangle" /> {errors}
                 </span>
