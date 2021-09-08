@@ -1,42 +1,36 @@
 import './App.css';
-import { useState, useEffect } from 'react';
-import { useIsLoggedInQuery } from './features/api';
+import { useEffect, useCallback } from 'react';
+import { useIsLoggedInMutation } from './features/api';
+import { useSelector } from 'react-redux';
+
 
 import Public from './public/Public';
 import Private from './private/Private';
 
 function App() {
-  const [user, setUser] = useState(null);
-  // const { data, error, isLoading } = useIsLoggedInQuery();
-  useEffect(() => {
-    fetch('http://localhost:3000/me',
-    { 'method':'GET',
-      'credentials': "include",
-      headers:{
-        'Accept': 'application/json',
-        "Content-Type": "application/json"
-      }
-      
-    })
-    .then(r=>{
-      if(r.ok){
-        r.json()
-        .then(user=>setUser(user));
-      }else{
-        r.json()
-        .then(console.log(r))
-      }
-    });
-  }, [])
+  
+  const [isLoggedIn] = useIsLoggedInMutation();
 
-  // console.log(user)
+  const username = useSelector(state => state.rootReducer.user.username)
+
+  const checkForSession = useCallback(async () => {
+    try {
+      await isLoggedIn().unwrap()
+    } catch (error) {
+      console.error()
+    }
+  }, [isLoggedIn])
+
+  useEffect(() => {
+    checkForSession()
+  }, [checkForSession])
+
   return (
     <div className="App">
-      {/* <Private /> */}
-      {user ?
-        <Private onLogout={setUser} currentUser={user} />
+      {username.length > 0 ?
+        <Private />
         :
-        <Public onSignIn={setUser} />
+        <Public />
       }
     </div>
   );
