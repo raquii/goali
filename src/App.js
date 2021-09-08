@@ -20,6 +20,7 @@ function App() {
       history.push('/dashboard')
     } catch (error) {
       console.error()
+      history.push('/home')
     }
   }, [isLoggedIn, history]);
 

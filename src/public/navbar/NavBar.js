@@ -9,7 +9,7 @@ function NavBar() {
     return (
         <nav id='navbar' className={ open ? 'responsive' : ''}>
             <div id='home-nav'>
-                <NavLink exact to="/" className='link' id="logo">✓ goalie</NavLink>
+                <NavLink exact to="/home" className='link' id="logo"> ✓ </NavLink>
             </div>
             <ul id='ul-nav'>
                 <button className="icon link" onClick={handleClick}>

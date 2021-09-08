@@ -12,7 +12,7 @@ function Public() {
       <NavBar />
       <main id='main-content'>
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/home">
             <Home />
           </Route>
           <Route path="/about">
