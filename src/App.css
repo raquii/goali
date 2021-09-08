@@ -10,6 +10,14 @@
   margin-top: 20px;
 }
 
+#user-main{
+  position: relative;
+  top: 0;
+  left: 100pt;
+  transition: all 0.5s ease;
+  width: calc(100% - 100pt);
+}
+
 /* universal form styling  */
 
 form{
