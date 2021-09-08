@@ -12,20 +12,20 @@ export default function Sidebar() {
 
     const history = useHistory();
 
-    const [logout, {isSuccess}] = useLogoutMutation();
+    const [logout] = useLogoutMutation();
 
     async function signOut() {
         try {
-            await logout() 
-            history.push("/")   
+            await logout()
+            history.push("/")
         } catch (error) {
             console.log(error)
-        }  
+        }
     }
 
     return (
         <>
-            {displayConfirm && 
+            {displayConfirm &&
                 <Alert
                     message="Are you sure you want to sign out?"
                     confirmHandler={signOut}
