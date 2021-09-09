@@ -1,0 +1,8 @@
+.new-habit-btn{
+    position: absolute;
+    top:5pt;
+    right:5pt;
+    background-color: var(--trans-gold);
+    color: white;
+    border:2pt solid var(--dark-gold);
+}
