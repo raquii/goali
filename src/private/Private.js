@@ -1,8 +1,14 @@
 import { Switch, Route } from "react-router";
+import { useSelector } from "react-redux";
+
 import Sidebar from "./sidebar/Sidebar";
 import Dashboard from "./dashboard/Dashboard";
+import Friends from "./friends/Friends";
+import Profile from "./profile/Profile";
+
 
 function Private() {
+    const user = useSelector(state => state.user)
 
     return (
         <>
@@ -13,10 +19,15 @@ function Private() {
                         <Dashboard />
                     </Route>
                     <Route path="/profile">
-                        <h1>Here is your profile</h1>
+                        <Profile 
+                        username={user.username}
+                        name={user.name}
+                        bio={user.profile.bio}
+                        location={user.profile.location}
+                        />
                     </Route>
                     <Route path="/friends">
-                        <h1>Here are your friends</h1>
+                        <Friends />
                     </Route>
                     <Route path="/messages">
                         <h1>Here are your messages</h1>
