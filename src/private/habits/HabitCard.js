@@ -6,10 +6,10 @@ export default function HabitCard({
     name,
     description,
     periodicity,
-    goal,
+    frequency,
     private_habit,
     archived,
-    count_times_logged
+    total_times
 }) {
 
     function handleUpdate(e) {
@@ -34,9 +34,9 @@ export default function HabitCard({
         <div className='habit-card' id={id}>
             <h2 className='habit-name'>{name}</h2>
             <p className='habit-description'>{description}</p>
-            <h3 className='habit-count'>{count_times_logged} times</h3>
+            <h3 className='habit-count'>{total_times} times</h3>
             
-            <p className='habit-goal'>Your goal is to {name.toLowerCase()} {goal} {goal > 1 ? "times" : "time"} a {periodicity}.</p>
+            <p className='habit-frequency'>My goal is to {name.toLowerCase()} {frequency} {frequency > 1 ? "times" : "time"} a {periodicity}.</p>
             <div className='habit-button-container'>
                 <button type='button' className='habit-button' onClick={() => console.log('I want to edit this habit')}>
                     <i className='fas fa-edit' />
