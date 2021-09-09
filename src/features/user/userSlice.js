@@ -6,6 +6,12 @@ const initialState = {
     name: "",
     email: "",
     birthday: "",
+    profile: {
+        location: "",
+        bio: "",
+        profile_picture:""
+    },
+    habits:[]
 };
 
 export const slice = createSlice({
@@ -25,6 +31,10 @@ export const slice = createSlice({
                 state.username = action.payload.username;
                 state.email = action.payload.email;
                 state.birthday = action.payload.birthday;
+                state.profile.location = action.payload.profile.location;
+                state.profile.bio = action.payload.profile.bio;
+                state.profile.profile_picture = action.payload.profile.profile_picture;
+                state.habits = action.payload.habits;
             })
             .addMatcher(api.endpoints.login.matchRejected, (state, action) => {
                 console.log('rejected', action);
@@ -39,6 +49,10 @@ export const slice = createSlice({
                 state.username = action.payload.username;
                 state.email = action.payload.email;
                 state.birthday = action.payload.birthday;
+                state.profile.location = action.payload.profile.location;
+                state.profile.bio = action.payload.profile.bio;
+                state.profile.profile_picture = action.payload.profile.profile_picture;
+                state.habits = action.payload.habits;
             })
             
 
