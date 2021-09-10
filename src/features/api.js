@@ -24,10 +24,24 @@ export const api = createApi({
                 url: 'me',
             })
         }),
+        updateHabit: builder.mutation({
+            query:(habit) => ({
+                url:`habits/${habit.id}`,
+                method:"PATCH",
+                body: habit,
+            })
+        }),
+        newHabit: builder.mutation({
+            query:(habit) => ({
+                url:"habits",
+                method:"POST",
+                body: habit,
+            })
+        })
     })
 })
 
 
-export const { useLoginMutation, useLogoutMutation, useIsLoggedInMutation } = api;
+export const { useLoginMutation, useLogoutMutation, useIsLoggedInMutation, useNewHabitMutation, useUpdateHabitMutation } = api;
 
-export const { endpoints: { login, logout, isLoggedIn } } = api;
+export const { endpoints: { login, logout, isLoggedIn, updateHabit, newHabit } } = api;
