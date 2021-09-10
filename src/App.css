@@ -28,8 +28,9 @@
 form{
   display: flex;
   flex-flow: column wrap;
-  text-align: left;
-  align-items: center;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 input{
@@ -38,7 +39,7 @@ input{
   background: var(--trans-teal);
   font-family: 'Montserrat', sans-serif;
   margin: 1pt 0 6pt 0;
-  color: var(--dark-teal);
+  color: var(--dark-gold);
 }
 
 input:focus-visible{
