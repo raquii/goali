@@ -1,12 +1,17 @@
 import { Formik, Form, useField } from "formik";
+import { useUpdateHabitMutation, useNewHabitMutation } from "../../features/api";
 import * as Yup from "yup";
+import Toggle from "react-toggle";
+
+import './HabitForm.css'
 import Button from "../../components/button/Button";
 
+// custom text input for Formik
 const TextInput = ({ label, ...props }) => {
     const [field, meta] = useField(props);
     return (
         <>
-            <label htmlFor={props.id || props.name}>{label}</label>
+            <label style={{ marginRight: "5pt" }} htmlFor={props.id || props.name}>{label}</label>
             <input className="text-input" {...field} {...props} />
             {meta.touched && meta.error ? (
                 <div className="error-msg" ><i className="fas fa-exclamation-triangle" /> {meta.error}</div>
@@ -15,40 +20,41 @@ const TextInput = ({ label, ...props }) => {
     );
 };
 
+// custom checkbox input for Formik
 const Checkbox = ({ children, ...props }) => {
     const [field, meta] = useField({ ...props, type: 'checkbox' });
     return (
-        <div>
+        <div className='checkbox'>
             <label className="checkbox-input">
-                <input type="checkbox" {...field} {...props} />
                 {children}
             </label>
+            <Toggle {...field} {...props} />
             {meta.touched && meta.error ? (
-                <div className="error">{meta.error}</div>
+                <div className="error-msg"><i className="fas fa-exclamation-triangle" /> {meta.error}</div>
             ) : null}
         </div>
     );
 };
-
+//custom select input for Formik
 const Select = ({ label, ...props }) => {
     const [field, meta] = useField(props);
     return (
         <div>
-            <label htmlFor={props.id || props.name}>{label}</label>
+            <label htmlFor={props.id || props.name} style={{ marginRight: "5pt" }}>{label}</label>
             <select {...field} {...props} />
             {meta.touched && meta.error ? (
-                <div className="error">{meta.error}</div>
+                <div className="error-msg"><i className="fas fa-exclamation-triangle" /> {meta.error}</div>
             ) : null}
         </div>
     );
 };
-
-const TextArea = ({label, ...props }) => {
+//custom text area for Formik
+const TextArea = ({ label, ...props }) => {
     const [field, meta] = useField(props);
     return (
         <>
             <label htmlFor={props.id || props.name}>{label}</label>
-            <textarea className="text-area" {...field} {...props} />
+            <textarea rows={3} cols={27} className="text-area" {...field} {...props} />
             {meta.touched && meta.error ? (
                 <div className="error-msg" ><i className="fas fa-exclamation-triangle" /> {meta.error}</div>
             ) : null}
@@ -56,29 +62,40 @@ const TextArea = ({label, ...props }) => {
     );
 };
 
-export default function HabitForm({formPurpose = "New"}) {
+export default function HabitForm({ formPurpose = "New", habit, setShowForm }) {
+    const [updateHabit] = useUpdateHabitMutation();
+    const [newHabit] = useNewHabitMutation();
 
-    function handleSubmit(values) {
-        fetch('/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(values)
-        })
-            .then(r => r.json())
-            .then(user => console.log(user))
+   async function handleSubmit(values) {
+        try {
+            formPurpose === "New" ?
+                await newHabit(values).unwrap()
+                :
+                await updateHabit(values).unwrap()
+            setShowForm(false)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
-        <div>
+        <div className='habit-form'>
             <Formik
-                initialValues={{
+                initialValues={habit ? {
+                    id: habit.id,
+                    name: habit.name,
+                    description: habit.description,
+                    icon: '',
+                    periodicity: habit.periodicity,
+                    goal: habit.frequency,
+                    private: habit.private_habit,
+                    archived: habit.archived,
+                } : {
                     name: '',
                     description: '',
                     icon: '',
-                    perodicity: '',
-                    goal: 0,
+                    periodicity: '',
+                    goal: 1,
                     private: true,
                     archived: false,
                 }}
@@ -95,9 +112,9 @@ export default function HabitForm({formPurpose = "New"}) {
                         .required('Required'),
                     goal: Yup.number()
                         .required('Required'),
-                    private: Yup.boolean()
+                    private: Yup.string()
                         .required('Required'),
-                    archived: Yup.boolean()
+                    archived: Yup.string()
                         .required('Required'),
                 })}
                 onSubmit={values => { handleSubmit(values) }}
@@ -112,29 +129,39 @@ export default function HabitForm({formPurpose = "New"}) {
                     <TextArea
                         label="Description"
                         name="description"
-                    />
-                    <TextInput
-                        label="I want to do this habit"
-                        name="goal"
-                        type="number"
-                    />
-                    <Select label='times a' name='periodicity'>
-                        <option value={null}>Select Periodicity</option>
-                        <option value="day">Day</option>
-                        <option value="week">Week</option>
-                        <option value="month">Month</option>
-                    </Select>
+                    /><span id='span'>
+                        <TextInput
+                            className='form-goal'
+                            label="I want to do this habit"
+                            name="goal"
+                            type="number"
+                        />
+                        <Select id='form-select'
+                            label='times a' name='periodicity'>
+                            <option value={null}>Select...</option>
+                            <option value="day">day</option>
+                            <option value="week">week</option>
+                            <option value="month">month</option>
+                        </Select></span>
                     <Checkbox name='private'>
-                        Private Habit?
+                        Private Habit:
                     </Checkbox>
-                    <Checkbox name='archive'>
-                        Archive This Habit
-                    </Checkbox>
+                    {formPurpose !== "New" && <Checkbox name='archive'>
+                        Archive Habit
+                    </Checkbox>}
+                    <div id='form-button-container'>
                     <Button
                         type='submit'
                         text='Save Habit'
                         clickHandler={() => undefined}
                     />
+                    <Button
+                        type='button'
+                        text='Cancel'
+                        className='cancel button'
+                        clickHandler={() => setShowForm(false)}
+                    />
+                    </div>
                 </Form>
             </Formik>
         </div>
