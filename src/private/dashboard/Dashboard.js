@@ -12,14 +12,8 @@ export default function Dashboard() {
 
     const habits = user.habits.map(habit => <HabitCard
         key={habit.id}
-        id={habit.id}
-        name={habit.name}
-        description={habit.description}
-        periodicity={habit.periodicity}
-        frequency={habit.frequency}
-        private_habit={habit.private_habit}
-        archived={habit.archived}
-        total_times={habit.total_times} />
+        habit={habit}
+       />
     )
 
     return (
@@ -33,7 +27,7 @@ export default function Dashboard() {
                 text='Create New Habit'
                 clickHandler={()=>setShowForm(!showForm)}
             />
-            {showForm && <HabitForm />}
+            {showForm && <HabitForm setShowForm={setShowForm} />}
         </div>
     )
 }
