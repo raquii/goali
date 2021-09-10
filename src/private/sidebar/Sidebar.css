@@ -104,6 +104,7 @@
 
     #user-main{
         left:50pt;
+        width: calc(100% - 50pt);
     }
 
     #sidebar.responsive ~ #user-main{
