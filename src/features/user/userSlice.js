@@ -18,7 +18,7 @@ export const slice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        logout: () => initialState,
+
     },
     extraReducers: (builder)=>{
         builder
@@ -54,8 +54,26 @@ export const slice = createSlice({
                 state.profile.profile_picture = action.payload.profile.profile_picture;
                 state.habits = action.payload.habits;
             })
-            
-
+            .addMatcher(api.endpoints.updateHabit.matchPending, (state, action) => {
+                console.log('pending', action);
+            })
+            .addMatcher(api.endpoints.updateHabit.matchFulfilled, (state, action) => {
+                console.log('fulfilled-login', action);
+                state.habits = state.habits.map(habit=> habit.id === action.payload.id ? action.payload : habit);
+            })
+            .addMatcher(api.endpoints.updateHabit.matchRejected, (state, action) => {
+                console.log('rejected', action);
+            })
+            .addMatcher(api.endpoints.newHabit.matchPending, (state, action) => {
+                console.log('pending', action);
+            })
+            .addMatcher(api.endpoints.newHabit.matchFulfilled, (state, action) => {
+                console.log('fulfilled-login', action);
+                state.habits = [...state.habits, action.payload.habit];
+            })
+            .addMatcher(api.endpoints.newHabit.matchRejected, (state, action) => {
+                console.log('rejected', action);
+            })
     }
 })
 
