@@ -16,4 +16,23 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    background-color: var(--trans-teal);
+    border-radius: 6pt;
+    margin-top: 10pt;
+    padding: 5pt;
+}
+
+.friend-button{
+    background-color: transparent;
+    color: var(--dark-gold);
+    border:none;
+    cursor: pointer;
+}
+
+.delete{
+    color: var(--trans-grey);
+}
+
+.delete:hover{
+    color: var(--grey);
 }
