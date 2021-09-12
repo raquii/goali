@@ -18,7 +18,7 @@ export default function Dashboard() {
 
     return (
         <div id='dashboard'>
-            <h1>Welcome, {user.username}.</h1>
+            <h1 id='welcome-user'>Welcome, {user.username}.</h1>
             <div className="habits-container">
                 {habits}
             </div>
