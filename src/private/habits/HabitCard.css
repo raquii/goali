@@ -80,3 +80,22 @@
     background-color: var(--trans-gold);
 }
 
+.completed{
+    width:40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--dark-slate);
+    border:2pt solid var(--dark-gold);
+    cursor: pointer;
+}
+
+.completed-span{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: conic-gradient(var(--light-teal) 50%, var(--dark-slate) 0 51%);
+    border: 2pt solid var(--dark-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

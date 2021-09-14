@@ -49,11 +49,13 @@ export default function HabitCard({ habit }) {
                     text={showDetails ? <i className="fas fa-chevron-up" /> : <i className='fas fa-ellipsis-h' />}
                 />
                 <div className='habit-button-container'>
-                    {/* <Button
-                        className='completed habit-button'
+                    <span className='completed-span'>
+                    <Button
+                        className='completed'
                         clickHandler={() => console.log('finished')}
-                        text={<i className='fas fa-ellipsis-h' />}
-                    /> */}
+                        text=""
+                    />
+                    </span>
                     <Button
                         className='habit-button'
                         clickHandler={() => setShowForm(true)}
