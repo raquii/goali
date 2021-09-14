@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import Button from "../../components/button/Button";
 import Alert from "../alert/Alert";
 
-export default function RequestCard({ id, username, name, addFriend, removeRequest }) {
+export default function RequestCard({ id, friendId, username, name, addFriend, removeRequest }) {
     const [showAlert, setShowAlert] = useState(false);
 
     function acceptFriend(id){
@@ -13,13 +13,29 @@ export default function RequestCard({ id, username, name, addFriend, removeReque
             headers:{
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({friend_b_id: id})
+            body: JSON.stringify({friend_id: friendId})
         })
         .then(r=>r.json())
         .then(friend=>{
                 addFriend(friends=>[...friends, friend])
                 removeRequest(req=>req.filter(r => r.id !== id))
             })
+    }
+
+    function rejectFriend(id){
+        fetch(`http://localhost:3000/friend_requests/${id}`, {
+            method: 'DELETE',
+            credentials:'include',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id: id})
+        })
+        .then(r=>r.json())
+        .then(()=>{
+            setShowAlert(false)
+            removeRequest(req=>req.filter(r => r.id !== id))
+        })
     }
 
     return (

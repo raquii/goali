@@ -3,20 +3,20 @@ import { useState } from "react";
 import Button from "../../components/button/Button";
 import Alert from "../alert/Alert";
 
-export default function FriendCard({ id, username, name, removeFriend }) {
+export default function FriendCard({ id, friendId, username, name, removeFriend }) {
     const [showAlert, setShowAlert] = useState(false);
 
     function deleteFriend(id){
-        fetch(`http://localhost:3000/friendships`, {
+        fetch(`http://localhost:3000/friendships/${id}`, {
             method: 'DELETE',
             credentials:'include',
             headers:{
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({friend_b_id: id})
+            body: JSON.stringify({friend_id: friendId})
         })
         .then(r=>r.json())
-        .then(data=>{
+        .then(()=>{
             setShowAlert(false)
             removeFriend(friends=>friends.filter(f => f.id !== id))
         })

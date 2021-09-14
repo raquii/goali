@@ -22,19 +22,21 @@ export default function Friends() {
     }, []);
     
     const friendCards = friends.map(friend => <FriendCard
-        key={friend.username}
+        key={friend.friend.username}
         id={friend.id}
-        name={friend.name}
-        username={friend.username}
+        friendId={friend.friend.id}
+        name={friend.friend.name}
+        username={friend.friend.username}
         removeFriend={setFriends}
     />
     );
 
     const requestCards = requests.map(request => <RequestCard
-        key={request.username}
+        key={request.requestor.username}
         id={request.id}
-        name={request.name}
-        username={request.username}
+        friendId={request.requestor.id}
+        name={request.requestor.name}
+        username={request.requestor.username}
         addFriend={setFriends}
         removeRequest={setRequests}
     />)
