@@ -1,0 +1,13 @@
+#profile-container{
+    display: flex;
+    flex-flow: column;
+    border: 2pt solid var(--dark-gold);
+    border-radius: 4pt;
+    width:60%;
+    margin:20pt 0 0 20pt;
+    padding:10pt;
+    position: relative;
+    background-color: var(--dark-slate);
+    margin-bottom: 10pt;
+    text-align: left;
+}
