@@ -10,6 +10,13 @@
     flex: 0 1 60%;
 }
 
+#friend-side-bar{
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    align-items: center;
+}
+
 .friend-card{
     display: flex;
     align-content: center;
@@ -35,4 +42,26 @@
 
 .delete:hover{
     color: var(--grey);
+}
+
+.accept{
+    color: var(--light-teal);
+}
+
+.accept:hover{
+    color: var(--dark-teal);
+}
+
+.request-card{
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    justify-content: space-evenly;
+    background-color: var(--trans-teal);
+    border-radius: 6pt;
+    margin-top: 10pt;
+    padding: 5pt;
+    width: 80%;
 }
