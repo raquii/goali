@@ -18,7 +18,7 @@ export default function Sidebar() {
         try {
             await logout()
             setDisplayConfirm(false)
-            history.push("/")
+            history.push("/home")
         } catch (error) {
             console.log(error)
         }
