@@ -1,3 +1,5 @@
+import './Profile.css'
+
 export default function Profile({
     username,
     name,
@@ -8,6 +10,7 @@ export default function Profile({
     return (
         <div id="profile-container">
             <table>
+                <tbody>
                 <tr>
                     <th>
                         Username:
@@ -40,6 +43,7 @@ export default function Profile({
                         {bio}
                     </td>
                 </tr>
+                </tbody>
             </table>
         </div>
     )
