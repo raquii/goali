@@ -40,8 +40,8 @@ export const slice = createSlice({
                 console.log('rejected', action);
             })
             .addMatcher(api.endpoints.logout.matchFulfilled, (state) => {
-                state = initialState;
                 console.log('fulfilled-logout', state);
+                return state = initialState;
             })
             .addMatcher(api.endpoints.isLoggedIn.matchFulfilled, (state, action)=>{
                 console.log('fulfilled-session recovered', action);
