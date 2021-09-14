@@ -3,14 +3,30 @@ import { useState } from "react";
 import Button from "../../components/button/Button";
 import Alert from "../alert/Alert";
 
-export default function FriendCard({ username, name }) {
+export default function FriendCard({ id, username, name, removeFriend }) {
     const [showAlert, setShowAlert] = useState(false);
+
+    function deleteFriend(id){
+        fetch(`http://localhost:3000/friendships`, {
+            method: 'DELETE',
+            credentials:'include',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({friend_b_id: id})
+        })
+        .then(r=>r.json())
+        .then(data=>{
+            setShowAlert(false)
+            removeFriend(friends=>friends.filter(f => f.id !== id))
+        })
+    }
 
     return (
         <>
             {showAlert && <Alert
                 message={`Are you sure you'd like to remove ${name} as a friend?`}
-                confirmHandler={() => console.log('yeah, fuck him')}
+                confirmHandler={() => deleteFriend(id)}
                 cancelHandler={()=>setShowAlert(false)}
             />
             }
