@@ -37,11 +37,18 @@ export const api = createApi({
                 method:"POST",
                 body: habit,
             })
-        })
+        }),
+        updateProfile: builder.mutation({
+            query:(profile) => ({
+                url:`profiles/${profile.id}`,
+                method:"PATCH",
+                body: profile,
+            })
+        }),
     })
 })
 
 
-export const { useLoginMutation, useLogoutMutation, useIsLoggedInMutation, useNewHabitMutation, useUpdateHabitMutation } = api;
+export const { useLoginMutation, useLogoutMutation, useIsLoggedInMutation, useNewHabitMutation, useUpdateHabitMutation, useUpdateProfileMutation } = api;
 
-export const { endpoints: { login, logout, isLoggedIn, updateHabit, newHabit } } = api;
+export const { endpoints: { login, logout, isLoggedIn, updateHabit, newHabit, updateProfile } } = api;

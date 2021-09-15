@@ -7,6 +7,7 @@ const initialState = {
     email: "",
     birthday: "",
     profile: {
+        id:"",
         location: "",
         bio: "",
         profile_picture:""
@@ -49,6 +50,7 @@ export const slice = createSlice({
                 state.username = action.payload.username;
                 state.email = action.payload.email;
                 state.birthday = action.payload.birthday;
+                state.profile.id = action.payload.profile.id;
                 state.profile.location = action.payload.profile.location;
                 state.profile.bio = action.payload.profile.bio;
                 state.profile.profile_picture = action.payload.profile.profile_picture;
@@ -58,7 +60,7 @@ export const slice = createSlice({
                 console.log('pending', action);
             })
             .addMatcher(api.endpoints.updateHabit.matchFulfilled, (state, action) => {
-                console.log('fulfilled-login', action);
+                console.log('fulfilled-updateHabit', action);
                 state.habits = state.habits.map(habit=> habit.id === action.payload.id ? action.payload : habit);
             })
             .addMatcher(api.endpoints.updateHabit.matchRejected, (state, action) => {
@@ -68,11 +70,16 @@ export const slice = createSlice({
                 console.log('pending', action);
             })
             .addMatcher(api.endpoints.newHabit.matchFulfilled, (state, action) => {
-                console.log('fulfilled-login', action);
+                console.log('fulfilled-newHabit', action);
                 state.habits = [...state.habits, action.payload.habit];
             })
             .addMatcher(api.endpoints.newHabit.matchRejected, (state, action) => {
                 console.log('rejected', action);
+            })
+            .addMatcher(api.endpoints.updateProfile.matchFulfilled, (state, action) => {
+                console.log('fulfilled-updateProfile', action);
+                state.profile.bio = action.payload.bio;
+                state.profile.location = action.payload.location;
             })
     }
 })
