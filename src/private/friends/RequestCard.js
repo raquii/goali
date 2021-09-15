@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from 'react-redux'
 import Button from "../../components/button/Button";
 import Alert from "../alert/Alert";
 
@@ -42,18 +41,18 @@ export default function RequestCard({ id, friendId, username, name, addFriend, r
         <>
             {showAlert && <Alert
                 message={`Cancel pending friend request with ${name}?`}
-                confirmHandler={() => console.log('yeah, fuck him')}
+                confirmHandler={() => rejectFriend(id)}
                 cancelHandler={()=>setShowAlert(false)}
             />
             }
             <div key={username} className='request-card'>
                 <Button
                     type='button'
-                    className='friend-button'
+                    className='friend-button request-icon'
                     clickHandler={() => console.log('I want to edit this habit')}
                     text={<i className='fas fa-user-circle fa-5x' />}
                 />
-                <h4>{name} • <em>{username}</em></h4>
+                <h4>{name} <br/><em>{username}</em></h4>
                 <div className='request-button-container'>
                     <Button
                         type='button'
