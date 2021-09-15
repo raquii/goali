@@ -1,13 +1,44 @@
 #profile-container{
+    position: relative;
     display: flex;
     flex-flow: column;
     border: 2pt solid var(--dark-gold);
     border-radius: 4pt;
-    width:60%;
-    margin:20pt 0 0 20pt;
+    width:fit-content;
+    margin-top:20pt;
     padding:10pt;
     position: relative;
     background-color: var(--dark-slate);
-    margin-bottom: 10pt;
     text-align: left;
+    align-self: center;
+    transition: all 1s ease;
+}
+
+.profile-form{
+    position:absolute;
+    top:-40pt;
+    left:0;
+    width: -webkit-fill-available;
+    z-index: 10;
+}
+
+.profile-icon{
+    cursor: default;
+}
+
+.profile-edit{
+    position: absolute;
+    top: 10pt;
+    right: 10pt;
+}
+
+#profile-container th{
+    color: var(--dark-gold);
+}
+
+@media screen and (max-width: 600px) {
+    #profile-container{
+        font-size: .7rem;
+    }
+    
 }

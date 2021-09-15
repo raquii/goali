@@ -1,32 +1,112 @@
 #friends-page{
     display: flex;
-    flex-flow: row;
+    flex-flow: row wrap;
     justify-content: space-evenly;
     align-content: space-between;
     width: 100%;
 }
 
-#friend-card-container{
-    flex: 0 1 60%;
+/* search bar styles */
+
+#friend-search-bar{
+    order: -1;
+    flex: 0 1 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10pt 0 12pt 15pt;
+    background: linear-gradient(180deg, var(--trans-slate) 0%, #182125 100%);
 }
+
+#search-label{
+    margin-right:5pt;
+    flex:0 1 100%;
+    align-self:flex-start;
+    text-align: left;
+}
+
+#friend-search{
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.search-toggle{
+    background-color: transparent;
+    border: 2pt solid var(--light-teal);
+    border-radius: 20px;
+    cursor: pointer;
+    line-height: 1;
+    padding: .5em .8em;
+    text-align: center;
+    color: white;
+    margin-left: 5pt;
+}
+
+/* sidebar styles */
 
 #friend-side-bar{
     display: flex;
     flex-flow: column;
     align-content: center;
     align-items: center;
+    position: relative;
 }
+
+#requests-header{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.request-alert{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    margin-left: 10px;
+    border:2pt solid rgba(128, 0, 0, 0.854);
+    border-radius: 100%;
+    background: transparent;
+    text-align: center;
+    color: white;
+    width: 25px;
+    height: 25px;
+}
+
+/* friend card component styles */
 
 .friend-card{
     display: flex;
     align-content: center;
-    flex-direction: row;
+    flex-flow: row;
     align-items: center;
     justify-content: space-evenly;
     background-color: var(--trans-teal);
     border-radius: 6pt;
     margin-top: 10pt;
     padding: 5pt;
+    border: 2pt solid var(--trans-gold);
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
+}
+
+.profile-button{
+    background-color: transparent;
+    color: var(--dark-gold);
+    border:none;
+    cursor: pointer;
+}
+.friend-username{
+    font-style: italic;
+    font-size: .8em;
+    color: var(--dark-gold);
+}
+
+.friend-button-container{
+    display: flex;
+    flex-flow: column;
 }
 
 .friend-button{
@@ -34,9 +114,12 @@
     color: var(--dark-gold);
     border:none;
     cursor: pointer;
+    margin-bottom: 3pt;
+    font-size: 1rem;
 }
 
 .delete{
+    margin-top: 3pt;
     color: var(--trans-grey);
 }
 
@@ -44,6 +127,8 @@
     color: var(--grey);
 }
 
+
+/* request card styles */
 .accept{
     color: var(--light-teal);
 }
@@ -64,4 +149,50 @@
     margin-top: 10pt;
     padding: 5pt;
     width: 80%;
+    border: 2pt solid var(--light-teal);
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
+}
+
+.request-icon{
+    color: var(--light-teal)
+}
+
+/* media queries for mobile support */
+
+@media screen and (max-width: 600px) {
+    #friend-card-container{
+        flex: 0 1 87%;
+    }
+
+    .friend-card h2{
+        font-size: .75rem;
+        width: 100%;
+    }
+
+    .friend-icon{
+        height: 50pt;
+        width: 50pt;
+        font-size: .5rem;
+    }
+
+    #friend-side-bar{
+        order: -1;
+    }
+
+    .request-card{
+        width:100%;
+        flex-flow:row;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .request-card h4{
+        font-size: .75rem;
+        width: 100%;
+    }
+    .request-icon{
+        height: 50pt;
+        width: 50pt;
+        font-size: .79rem;
+    }
 }
