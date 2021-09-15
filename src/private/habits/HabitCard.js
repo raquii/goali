@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import dayjs from 'dayjs';
 
 import Button from '../../components/button/Button';
 import './HabitCard.css';
@@ -17,7 +16,6 @@ export default function HabitCard({ habit }) {
         periodicity,
         frequency,
         private_habit,
-        archived,
         total_times
     } = habit;
 
@@ -57,7 +55,7 @@ export default function HabitCard({ habit }) {
                     />
                     </span>
                     <Button
-                        className='habit-button'
+                        className='edit-button'
                         clickHandler={() => setShowForm(true)}
                         text={<i className='fas fa-edit' />}
                     />
