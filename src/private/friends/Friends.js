@@ -2,10 +2,12 @@ import './Friends.css'
 import { useState, useEffect } from "react"
 import FriendCard from './FriendCard'
 import RequestCard from './RequestCard';
+import Button from '../../components/button/Button';
 
 export default function Friends() {
     const [friends, setFriends] = useState([]);
     const [requests, setRequests] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         fetch('http://localhost:3000/friendships', {
@@ -20,7 +22,19 @@ export default function Friends() {
             .then(r => r.json())
             .then(data => setRequests(data))
     }, []);
-    
+
+    function findMyFriends() {
+        if (search.length > 3) {
+            fetch(`http://localhost:3000/users?name=${search}`, {
+                credentials: 'include'
+            })
+                .then(r => r.json())
+                .then(data => console.log(data))
+        } else {
+            console.log('too short of a search')
+        }
+    }
+
     const friendCards = friends.map(friend => <FriendCard
         key={friend.friend.username}
         id={friend.id}
@@ -43,16 +57,38 @@ export default function Friends() {
 
     return (
         <div id="friends-page">
+            <div id='friend-search-bar'>
+                <label id='search-label' htmlFor='friend-search'>Find Friends</label>
+                <input
+                    id='friend-search'
+                    type='search'
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                <Button
+                    clickHandler={findMyFriends}
+                    text={<i className='fa fa-search' />}
+                    className="search-toggle"
+                />
+            </div>
+
             <div id='friend-card-container'>
+                <h1>Friends</h1>
                 {friendCards}
             </div>
             <div id="friend-side-bar">
-                <h3>Find Friends:</h3>
-                <input type='search'></input>
-                <h3>Pending Requests</h3>
+                <div id='requests-header'>
+                    <h4>Pending Requests</h4>
+                    {requests.length > 0 &&
+                        <div className='request-alert'>
+                            {requests.length}
+                        </div>
+                    }
+
+                </div>
+
                 {requestCards}
             </div>
-
         </div>
     )
 }
