@@ -20,15 +20,17 @@ const TextInput = ({ label, ...props }) => {
     );
 };
 
-export default function ProfileForm({ setShowForm }) {
+export default function ProfileForm({ setShowForm, setUser, user }) {
     const [updateProfile] = useUpdateProfileMutation();
 
     const profile = useSelector(state => state.user.profile)
 
    async function handleSubmit(values) {
+    
         try {
             await updateProfile(values).unwrap()
             setShowForm(false)
+            setUser({...user, profile: values })
         } catch (error) {
             console.log(error)
         }

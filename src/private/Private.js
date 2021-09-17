@@ -18,16 +18,11 @@ function Private() {
                     <Route exact path="/dashboard">
                         <Dashboard />
                     </Route>
-                    <Route path="/profile">
-                        <Profile 
-                        username={user.username}
-                        name={user.name}
-                        bio={user.profile.bio}
-                        location={user.profile.location}
-                        />
-                    </Route>
                     <Route path="/friends">
                         <Friends />
+                    </Route>
+                    <Route path="/users/:username">
+                        <Profile/>
                     </Route>
                     <Route path="/messages">
                         <h1>Here are your messages</h1>

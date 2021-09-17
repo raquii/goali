@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Button from "../../components/button/Button";
 import Alert from "../alert/Alert";
@@ -31,16 +32,15 @@ export default function FriendCard({ id, friendId, username, name, removeFriend 
             />
             }
             <div key={username} className='friend-card'>
-                <Button
-                    type='button'
+                <Link
                     className='profile-button friend-icon'
-                    clickHandler={() => console.log('I want see their profile')}
-                    text={<i className='fas fa-user-circle fa-8x' />}
-                />
+                    to={`users/${username}`}>
+                    <i className='fas fa-user-circle fa-6x' />
+                </Link>
                 <h2>
                     {name}
                     <br />
-                
+
                     <span className='friend-username'>{username}</span>
                 </h2>
                 <div className='friend-button-container'>

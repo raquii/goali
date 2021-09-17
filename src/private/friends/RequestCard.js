@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Button from "../../components/button/Button";
 import Alert from "../alert/Alert";
 
@@ -46,12 +47,11 @@ export default function RequestCard({ id, friendId, username, name, addFriend, r
             />
             }
             <div key={username} className='request-card'>
-                <Button
-                    type='button'
-                    className='friend-button request-icon'
-                    clickHandler={() => console.log('I want to edit this habit')}
-                    text={<i className='fas fa-user-circle fa-5x' />}
-                />
+                <Link
+                    className='profile-button request-icon'
+                    to={`users/${username}`}>
+                    <i className='fas fa-user-circle fa-5x' />
+                </Link>
                 <h4>{name} <br/><em>{username}</em></h4>
                 <div className='request-button-container'>
                     <Button

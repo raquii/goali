@@ -1,28 +1,45 @@
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useParams } from 'react-router';
 
 import './Profile.css';
 import Button from '../../components/button/Button';
 import ProfileForm from './ProfileForm';
+import { useEffect } from 'react';
 
 
-export default function Profile({
-    username,
-    name,
-    bio,
-    location,
-    profile_picture,
-}) {
+export default function Profile() {
     const [showForm, setShowForm] = useState(false)
+    const [user, setUser] = useState({
+        name:"",
+        username:"",
+        profile:{
+            location:"",
+            bio:""
+        }
+    })
     const currentUser = useSelector(state => state.user.username)
+
+    const { username } = useParams();
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/users/${username}`, {
+            credentials: 'include'
+        })
+            .then(r => r.json())
+            .then(data => setUser(data))
+    }, [username])
+
 
     return (
         <div id="profile-container">
-            {showForm && <ProfileForm setShowForm={setShowForm} />}
+            {showForm && <ProfileForm 
+            setShowForm={setShowForm} 
+            setUser={setUser}
+            user={user} />}
             <Button
                 type='button'
                 className='profile-button profile-icon'
-                clickHandler={() => console.log('I want see their profile')}
                 text={<i className='fas fa-user-circle fa-8x' />}
             />
             {username === currentUser &&
@@ -39,7 +56,7 @@ export default function Profile({
                             Username:
                         </th>
                         <td>
-                            {username}
+                            {user.username}
                         </td>
                     </tr>
                     <tr>
@@ -47,7 +64,7 @@ export default function Profile({
                             Name:
                         </th>
                         <td>
-                            {name}
+                            {user.name}
                         </td>
                     </tr>
                     <tr>
@@ -55,7 +72,7 @@ export default function Profile({
                             Location:
                         </th>
                         <td>
-                            {location}
+                            {user.profile.location}
                         </td>
                     </tr>
                     <tr>
@@ -63,7 +80,7 @@ export default function Profile({
                             Bio:
                         </th>
                         <td>
-                            {bio}
+                            {user.profile.bio}
                         </td>
                     </tr>
                 </tbody>

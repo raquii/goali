@@ -93,6 +93,7 @@
 }
 
 .profile-button{
+    display: block;
     background-color: transparent;
     color: var(--dark-gold);
     border:none;
