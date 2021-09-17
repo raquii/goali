@@ -1,14 +1,17 @@
 import './Sidebar.css'
 import { useState } from "react"
+import { useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useLogoutMutation } from '../../features/api';
 
 import Button from "../../components/button/Button";
 import Alert from "../alert/Alert";
 
+
 export default function Sidebar() {
     const [open, setOpen] = useState(false);
     const [displayConfirm, setDisplayConfirm] = useState(false);
+    const username = useSelector(state => state.user.username)
 
     const history = useHistory();
 
@@ -42,7 +45,7 @@ export default function Sidebar() {
                         <NavLink to="/dashboard" className='side-link'>Home</NavLink>
                     </li>
                     <li className='li-side'>
-                        <NavLink to="/profile" className='side-link'>Profile</NavLink>
+                        <NavLink to={`/users/${username}`} className='side-link'>Profile</NavLink>
                     </li>
                     <li className='li-side'>
                         <NavLink to="/friends" className='side-link'>Friends</NavLink>

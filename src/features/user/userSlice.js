@@ -80,6 +80,7 @@ export const slice = createSlice({
                 console.log('fulfilled-updateProfile', action);
                 state.profile.bio = action.payload.bio;
                 state.profile.location = action.payload.location;
+                return state
             })
     }
 })
