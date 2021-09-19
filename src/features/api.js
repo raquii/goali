@@ -38,6 +38,34 @@ export const api = createApi({
                 body: habit,
             })
         }),
+        deleteHabit: builder.mutation({
+            query:(habit) => ({
+                url:`habits/${habit.id}`,
+                method:"DELETE",
+                body: habit,
+            })
+        }),
+        newLog: builder.mutation({
+            query:(log) => ({
+                url:"logs",
+                method:"POST",
+                body: log,
+            })
+        }),
+        updateLog: builder.mutation({
+            query:(log) => ({
+                url:`logs/${log.id}`,
+                method:"PATCH",
+                body: log,
+            })
+        }),
+        deleteLog: builder.mutation({
+            query:(log) => ({
+                url:`logs/${log.id}`,
+                method:"DELETE",
+                body: log,
+            })
+        }),
         updateProfile: builder.mutation({
             query:(profile) => ({
                 url:`profiles/${profile.id}`,
@@ -49,6 +77,26 @@ export const api = createApi({
 })
 
 
-export const { useLoginMutation, useLogoutMutation, useIsLoggedInMutation, useNewHabitMutation, useUpdateHabitMutation, useUpdateProfileMutation } = api;
+export const { 
+    useLoginMutation, 
+    useLogoutMutation, 
+    useIsLoggedInMutation, 
+    useNewHabitMutation, 
+    useUpdateHabitMutation,
+    useDeleteHabitMutation, 
+    useUpdateProfileMutation, 
+    useNewLogMutation, 
+    useUpdateLogMutation, 
+    useDeleteLogMutation } = api;
 
-export const { endpoints: { login, logout, isLoggedIn, updateHabit, newHabit, updateProfile } } = api;
+export const { endpoints: { 
+    login, 
+    logout, 
+    isLoggedIn, 
+    updateHabit, 
+    newHabit,
+    deleteHabit, 
+    newLog, 
+    updateLog, 
+    deleteLog, 
+    updateProfile } } = api;
