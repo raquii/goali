@@ -25,12 +25,11 @@ export default function ProfileForm({ setShowForm, setUser, user }) {
 
     const profile = useSelector(state => state.user.profile)
 
-   async function handleSubmit(values) {
-    
+    async function handleSubmit(values) {
         try {
             await updateProfile(values).unwrap()
             setShowForm(false)
-            setUser({...user, profile: values })
+            setUser({ ...user, profile: values })
         } catch (error) {
             console.log(error)
         }

@@ -1,5 +1,6 @@
 #profile-container{
     position: relative;
+    left: 20pt;
     display: flex;
     flex-flow: column;
     border: 2pt solid var(--dark-gold);
@@ -7,11 +8,9 @@
     width:fit-content;
     margin-top:20pt;
     padding:10pt;
-    position: relative;
     background-color: var(--dark-slate);
     text-align: left;
-    align-self: center;
-    transition: all 1s ease;
+    align-self: flex-start;
 }
 
 .profile-form{
@@ -23,6 +22,7 @@
 }
 
 .profile-icon{
+    color: var(--light-teal);
     cursor: default;
 }
 
@@ -34,6 +34,11 @@
 
 #profile-container th{
     color: var(--dark-gold);
+}
+
+#habit-list{
+    margin-top: 5pt;
+    text-align: center;
 }
 
 @media screen and (max-width: 600px) {

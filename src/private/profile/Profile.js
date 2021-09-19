@@ -11,12 +11,13 @@ import { useEffect } from 'react';
 export default function Profile() {
     const [showForm, setShowForm] = useState(false)
     const [user, setUser] = useState({
-        name:"",
-        username:"",
-        profile:{
-            location:"",
-            bio:""
-        }
+        name: "",
+        username: "",
+        profile: {
+            location: "",
+            bio: ""
+        },
+        habits: []
     })
     const currentUser = useSelector(state => state.user.username)
 
@@ -30,13 +31,37 @@ export default function Profile() {
             .then(data => setUser(data))
     }, [username])
 
+    const additionalProfile = () => {
+        if (user.not_friends) {
+            return (
+                <Button
+                    text={`Send Friend Request`}
+                    clickHandler={console.log('add friend')}
+                />
+            )
+        } else {
+            return (
+                <div id='habit-list'>
+                    <h3 style={{ color: 'var(--dark-gold)' }}> Habits:</h3>
+                    {user.habits.length === 0 && <p>No habits to display.</p>}
+                    {user.habits.map(habit => {
+                        return (
+                            <div key={habit.name}>
+                                {habit.name}
+                            </div>
+                        )
+                    })}
+                </div>
+            )
+        }
+    }
 
     return (
         <div id="profile-container">
-            {showForm && <ProfileForm 
-            setShowForm={setShowForm} 
-            setUser={setUser}
-            user={user} />}
+            {showForm && <ProfileForm
+                setShowForm={setShowForm}
+                setUser={setUser}
+                user={user} />}
             <Button
                 type='button'
                 className='profile-button profile-icon'
@@ -85,6 +110,7 @@ export default function Profile() {
                     </tr>
                 </tbody>
             </table>
+            {additionalProfile()}
         </div>
     )
 }
