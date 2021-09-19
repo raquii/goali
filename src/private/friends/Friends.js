@@ -8,6 +8,7 @@ export default function Friends() {
     const [friends, setFriends] = useState([]);
     const [requests, setRequests] = useState([]);
     const [search, setSearch] = useState("");
+    const [results, setResults] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:3000/friendships', {
@@ -25,11 +26,11 @@ export default function Friends() {
 
     function findMyFriends() {
         if (search.length > 3) {
-            fetch(`http://localhost:3000/users?name=${search}`, {
+            fetch(`http://localhost:3000/users?search=${search}`, {
                 credentials: 'include'
             })
                 .then(r => r.json())
-                .then(data => console.log(data))
+                .then(data => setResults(data))
         } else {
             console.log('too short of a search')
         }
@@ -55,6 +56,24 @@ export default function Friends() {
         removeRequest={setRequests}
     />)
 
+    if(results.length>0){
+       
+        const users = results.map(user=> <RequestCard 
+            key={user.id}
+            id={user.id}
+            friendId={user.id}
+            name={user.name}
+            username={user.username}
+            addFriend={setRequests}
+            removeRequest={()=>console.log('jsfasga')}
+        />)
+        
+        return (
+            <>
+            {users}
+            </>
+        )
+    }
     return (
         <div id="friends-page">
             <div id='friend-search-bar'>
