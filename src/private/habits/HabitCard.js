@@ -1,14 +1,20 @@
 import { useState } from 'react';
-
+import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { useDeleteLogMutation, useNewLogMutation } from '../../features/api';
+import HabitDetails from './HabitDetails';
 import Button from '../../components/button/Button';
-import './HabitCard.css';
 import HabitForm from './HabitForm';
 
+import './HabitCard.css';
+
+dayjs.extend(relativeTime);
 
 export default function HabitCard({ habit }) {
     const [showForm, setShowForm] = useState(false);
-    const [showDetails, setShowDetails] = useState(false);
+    const [showHabitDetails, setShowHabitDetails] = useState(false);
 
+    //destructuring habit
     const {
         id,
         name,
@@ -16,50 +22,99 @@ export default function HabitCard({ habit }) {
         periodicity,
         frequency,
         private_habit,
-        total_times
+        total_times,
+        logs
     } = habit;
 
-    const habitDetails = () => {
-        return (
-            <>
-                <p className='habit-frequency'>
-                    My goal is to {name.toLowerCase()} {frequency > 1 ? `${frequency} times` : `once`} a {periodicity}.
-                </p>
-                <h3 className='habit-count'>
-                    Total Times: <span className='habit-highlight'>{total_times}</span>
-                </h3>
-                {description.length > 0 &&
-                    <p className='habit-description'>
-                        <strong>Description:</strong> {description}
-                    </p>}
-            </>
-        )
+    //check if the last time the habit was logged is in the same period as the the current date
+    const lastLogIsSamePeriod = logs.length > 0 && dayjs().isSame(logs[0].date, periodicity)
+
+    const period = {
+        day: 'TODAY',
+        month: 'THIS MONTH',
+        week: 'THIS WEEK'
     }
+
+    const [newLog] = useNewLogMutation()
+    const [deleteLog] = useDeleteLogMutation();
+
+    async function logHabit() {
+        const logObj = {
+            habit_id: id,
+            date: dayjs().format('MM/DD/YYYY')
+        }
+
+        try {
+            await newLog(logObj).unwrap()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function deleteTodaysLog() {
+        try {
+            await deleteLog(logs[0]).unwrap()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <>
-            {showForm && <HabitForm setShowForm={setShowForm} habit={habit} formPurpose='Edit' />}
+            {showForm &&
+                <HabitForm
+                    setShowForm={setShowForm}
+                    habit={habit}
+                    formPurpose='Edit'
+                />}
+
             <div className='habit-card' id={id}>
-                <h2 className='habit-name'>{name} {private_habit && <i title="Private habit" className="fas fa-lock"/>}</h2>
-                {showDetails && habitDetails()}
+                <div className='habit-header-container'>
+                    <h2 className='habit-name'>
+                        {name} {private_habit &&
+                            <i
+                                title="Private habit"
+                                className="fas fa-lock"
+                            />}
+                    </h2>
+                    <div className='habit-check-off'>
+                        {period[periodicity]}:
+                        {lastLogIsSamePeriod ?
+                            <Button
+                                className='log-button checked'
+                                clickHandler={deleteTodaysLog}
+                                text={<i className='far fa-check-circle' />}
+                            /> :
+                            <Button
+                                className='log-button'
+                                clickHandler={logHabit}
+                                text={<i className='far fa-circle' />}
+                            />
+                        }
+                    </div>
+                </div>
+
+                {showHabitDetails && <HabitDetails
+                    id={id}
+                    name={name}
+                    frequency={frequency}
+                    periodicity={periodicity}
+                    total_times={total_times}
+                    description={description}
+                    setShowForm={setShowForm}
+                />}
+
                 <Button
                     className='show-details'
-                    clickHandler={() => setShowDetails(!showDetails)}
-                    text={showDetails ? <i className="fas fa-chevron-up" /> : <i className='fas fa-ellipsis-h' />}
+                    clickHandler={() => setShowHabitDetails(!showHabitDetails)}
+                    text={showHabitDetails ?
+                        <i className="fas fa-chevron-up" />
+                        :
+                        <i className='fas fa-ellipsis-h' />
+                    }
+
                 />
-                <div className='habit-button-container'>
-                    <span className='completed-span'>
-                    <Button
-                        className='completed'
-                        clickHandler={() => console.log('finished')}
-                        text=""
-                    />
-                    </span>
-                    <Button
-                        className='edit-button'
-                        clickHandler={() => setShowForm(true)}
-                        text={<i className='fas fa-edit' />}
-                    />
-                </div>
+
             </div>
         </>
     )
